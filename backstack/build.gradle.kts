@@ -5,6 +5,7 @@ plugins {
 
 android {
     namespace = "com.gregorymarkthomas.backstack"
+    version = 0.7
     compileSdk = 34
 
     defaultConfig {
