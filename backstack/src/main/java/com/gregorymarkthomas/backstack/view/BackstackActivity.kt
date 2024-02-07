@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.ViewGroup
+import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.gregorymarkthomas.backstack.BackStack
@@ -14,7 +15,7 @@ import com.gregorymarkthomas.backstack.interfaces.BackStackInterface
 import com.gregorymarkthomas.backstack.interfaces.ModelInterface
 import java.io.Serializable
 
-abstract class BackstackActivity : AppCompatActivity(), BackStackInterface, BackStackCallback,
+abstract class BackstackActivity : ComponentActivity(), BackStackInterface, BackStackCallback,
     AndroidContextInterface {
 
     private lateinit var backstack: BackStack
@@ -24,7 +25,7 @@ abstract class BackstackActivity : AppCompatActivity(), BackStackInterface, Back
     }
 
     abstract fun getInitialView(): BackStackView
-    abstract fun addView(view: ConstraintLayout)
+    abstract fun addView(view: BackStackLayout)
     abstract fun removeAllViews()
     abstract fun getModel(): ModelInterface
 

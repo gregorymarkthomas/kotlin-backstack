@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "backstack"
 include(":backstack")
+include(":backstackexample")
