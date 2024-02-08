@@ -40,14 +40,36 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/goToBButton"
+        android:id="@+id/goBackButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/go_to_b"
+        android:text="@string/go_back"
         android:layout_marginEnd="@dimen/margin"
         android:layout_marginStart="@dimen/margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/goToButton" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/goToButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/go_to"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginStart="@dimen/margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/goBackButton"
+        app:layout_constraintEnd_toStartOf="@+id/clearToButton" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/clearToButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_to"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginStart="@dimen/margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/goToButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
@@ -56,13 +78,12 @@
         android:textSize="22dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/goToBButton"
+        app:layout_constraintBottom_toTopOf="@id/goToButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/pageTextView"
-        android:text="A"
         android:gravity="center"
         android:textSize="60dp"
         android:layout_width="wrap_content"

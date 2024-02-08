@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Backstack Example</string>
     <string name="update_date_time">Update date and time</string>
-    <string name="go_to_b">Go to B</string>
-    <string name="go_to_a">Go to A</string>
+    <string name="go_to">Go to</string>
+    <string name="clear_to">Clear to</string>
+    <string name="go_back">Go Back</string>
 </resources>

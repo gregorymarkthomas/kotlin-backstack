@@ -4,8 +4,10 @@ import com.gregorymarkthomas.backstack.interfaces.BackStackInterface
 import com.gregorymarkthomas.backstack.interfaces.ModelInterface
 import com.gregorymarkthomas.backstackexample.model.util.CalendarHelper
 import com.gregorymarkthomas.backstackexample.presenter.util.BackStackHelper
-import com.gregorymarkthomas.backstackexample.view.AViewInterface
+import com.gregorymarkthomas.backstackexample.view.AView
 import com.gregorymarkthomas.backstackexample.view.BView
+import com.gregorymarkthomas.backstackexample.view.CView
+import com.gregorymarkthomas.backstackexample.view.ViewInterface
 import java.util.Calendar
 
 /**
@@ -17,9 +19,9 @@ import java.util.Calendar
  * - Similar Views can share a Presenter (e.g. DayView, MonthView, YearView for a Calendar app),
  * but there should be a Presenter per feature.
  */
-class APresenter(private val view: AViewInterface,
-                 private val model: ModelInterface,
-                 private val backstack: BackStackInterface): APresenterInterface {
+class Presenter(private val view: ViewInterface,
+                private val model: ModelInterface,
+                private val backstack: BackStackInterface): PresenterInterface {
 
     init {
         updateDateTime()
@@ -30,7 +32,23 @@ class APresenter(private val view: AViewInterface,
         updateDateTime()
     }
 
-    override fun onGoToBButtonPress() {
+    override fun onGoToButtonPress(position: Int) {
+        when (position){
+            0 ->  backstack.goTo(AView())
+            1 ->  backstack.goTo(BView())
+            2 ->  backstack.goTo(CView())
+        }
+    }
+
+    override fun onClearToButtonPress(position: Int) {
+        when (position){
+            0 ->  backstack.clearTo(AView())
+            1 ->  backstack.clearTo(BView())
+            2 ->  backstack.clearTo(CView())
+        }
+    }
+
+    override fun onGoBackButtonPress() {
         backstack.goTo(BView())
     }
 
