@@ -1,22 +1,17 @@
 package com.gregorymarkthomas.backstack
 
-import com.gregorymarkthomas.backstack.view.BackStackView
 import com.gregorymarkthomas.backstack.interfaces.BackStackCallback
 import com.gregorymarkthomas.backstack.interfaces.BackStackInterface
-import java.util.*
+import com.gregorymarkthomas.backstack.view.BackStackView
 
 /**
  * Each view requires a few Android-related items, plus control of the backstack, hence the input arguments.
  * This is not a singleton in case the app has multiple Activities - there will be one BackStack per Activity.
  */
-class BackStack(private var callback: BackStackCallback, initialView: BackStackView):
+class BackStack(private var callback: BackStackCallback):
     BackStackInterface {
 
     private var stack: MutableList<BackStackView> = mutableListOf()
-
-    init {
-        goTo(initialView)
-    }
 
     /********** public */
     /**

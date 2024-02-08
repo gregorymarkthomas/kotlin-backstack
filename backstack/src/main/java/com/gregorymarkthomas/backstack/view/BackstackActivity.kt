@@ -4,10 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.ViewGroup
-import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.gregorymarkthomas.backstack.BackStack
 import com.gregorymarkthomas.backstack.interfaces.AndroidContextInterface
 import com.gregorymarkthomas.backstack.interfaces.BackStackCallback
@@ -15,14 +12,9 @@ import com.gregorymarkthomas.backstack.interfaces.BackStackInterface
 import com.gregorymarkthomas.backstack.interfaces.ModelInterface
 import java.io.Serializable
 
-abstract class BackstackActivity : ComponentActivity(), BackStackInterface, BackStackCallback,
+abstract class BackstackActivity : AppCompatActivity(), BackStackInterface, BackStackCallback,
     AndroidContextInterface {
-
-    private lateinit var backstack: BackStack
-
-    companion object {
-        const val INITIAL_VIEW_EXTRA = "initial_view_extra"
-    }
+    private var backstack: BackStack = BackStack(this)
 
     abstract fun getInitialView(): BackStackView
     abstract fun addView(view: BackStackLayout)
@@ -34,7 +26,7 @@ abstract class BackstackActivity : ComponentActivity(), BackStackInterface, Back
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        backstack = BackStack(this@BackstackActivity, getInitialView())
+        backstack.goTo(getInitialView())
     }
 
     /**
@@ -44,7 +36,7 @@ abstract class BackstackActivity : ComponentActivity(), BackStackInterface, Back
         removeAllViews()
         val view = backstackView.inflate(this)
         addView(view)
-        backstackView.onInitialised(this@BackstackActivity, getModel(), this@BackstackActivity)
+        backstackView.onInitialised(this, getModel(), this)
     }
 
     override fun onBackPressed() {

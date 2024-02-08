@@ -1,5 +1,7 @@
 package com.gregorymarkthomas.backstack.interfaces
 
+import java.util.Calendar
+
 interface ModelInterface {
-    /** Empty **/
+    fun getNowCalendar(): Calendar
 }

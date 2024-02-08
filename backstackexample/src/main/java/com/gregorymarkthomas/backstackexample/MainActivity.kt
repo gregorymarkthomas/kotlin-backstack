@@ -1,67 +1,39 @@
 package com.gregorymarkthomas.backstackexample
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.gregorymarkthomas.backstack.interfaces.ModelInterface
 import com.gregorymarkthomas.backstack.view.BackStackLayout
 import com.gregorymarkthomas.backstack.view.BackStackView
 import com.gregorymarkthomas.backstack.view.BackstackActivity
-import com.gregorymarkthomas.backstackexample.ui.theme.BackstackTheme
+import com.gregorymarkthomas.backstackexample.databinding.ActivityMainBinding
+import com.gregorymarkthomas.backstackexample.model.Model
+import com.gregorymarkthomas.backstackexample.model.repo.LocalDateTimeRepository
+import com.gregorymarkthomas.backstackexample.view.AView
 
 class MainActivity : BackstackActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var model: ModelInterface
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        model = Model(LocalDateTimeRepository())
+        super.onCreate(savedInstanceState)
+    }
+
     override fun getInitialView(): BackStackView {
-        TODO("Not yet implemented")
+        return AView()
     }
 
     override fun addView(view: BackStackLayout) {
-        TODO("Not yet implemented")
+        binding.root.addView(view)
     }
 
     override fun removeAllViews() {
-        TODO("Not yet implemented")
+        binding.root.removeAllViews()
     }
 
     override fun getModel(): ModelInterface {
-        TODO("Not yet implemented")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            BackstackTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    BackstackTheme {
-        Greeting("Android")
+        return model
     }
 }

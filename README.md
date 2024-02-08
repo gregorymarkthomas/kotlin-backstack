@@ -122,20 +122,20 @@ class AView: BackStackView() {
     override fun getTag(): String = "AView"
 
     override fun getLayout(): Int = R.layout.a_view
-
-    /** TODO: complete this!!
+    
+    /*
      * This is called by the PresenterInterface.
-     * We used to do this in initialisePresenter(), but the view wasn't yet drawn when we were retrieving the height of the RecyclerView to determine the size of each Day view.
-     * So, PresenterInterface now controls when it is created.
-     * We want to show 7 days per row, so we need 7 columns for the adapter.
      */
-    override fun onViewInitialised(backstack: BackStackInterface, model: ModelInterface, context: AndroidContextInterface) {
-        binding = MonthViewBinding.bind(view!!)
-        setupTodayButton()
-        setupAdapter(context)
+    override fun onViewInitialised(backstack: BackStackInterface, model: ModelInterface) {
+        binding = AViewBinding.bind(view!!)
+        setupButton()
         /** This should be last. **/
-        this.presenter = CalendarPresenter(this,
-            model as CalendarModelInterface, backstack, permissionChecker, dialogViewer, date)
+        this.presenter = APresenter(this, model, backstack)
     }
 }
 ```
+
+
+## Notes:
+
+- I have not tested any kind of compatibility with [Jetpack Compose](https://developer.android.com/jetpack/compose).
