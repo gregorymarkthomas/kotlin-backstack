@@ -24,6 +24,6 @@ class ActivityPresenter(private val backstack: BackStackInterface): ActivityPres
     }
 
     override fun onGoBackButtonPress() {
-        backstack.goTo(BView())
+        backstack.goBack()
     }
 }
