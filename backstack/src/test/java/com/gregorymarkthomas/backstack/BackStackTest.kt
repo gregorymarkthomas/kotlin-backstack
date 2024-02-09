@@ -6,12 +6,10 @@ import com.gregorymarkthomas.backstack.view.BView
 import com.gregorymarkthomas.backstack.view.CView
 import io.mockk.clearMocks
 import io.mockk.mockk
-import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertNotNull
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.TestInstance
-import java.util.*
 
 /**
  * Look here: https://blog.philipphauer.de/best-practices-unit-testing-kotlin/
@@ -20,22 +18,23 @@ import java.util.*
  * every { mock.call(more(5)) } returns 1
  * every { mock.call(or(less(5), eq(5))) } returns -1
  */
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BackStackTest {
 
     /**
      * 'relaxUnitFun = true' will stop 'io.mockk.MockKException: no answer found for...' error for our simple use of a mocked BackStackCallback
      */
     private val callback: BackStackCallback = mockk(relaxUnitFun = true)
+    private lateinit var backstack: BackStack
 
-    @BeforeEach
+    @Before
     fun init() {
         clearMocks(callback)
+        backstack = BackStack(callback)
     }
 
     @Test
     fun `has default view`() {
-        val backstack = BackStack(callback, AView())
+        backstack.goTo(AView())
 
         /** then **/
         assertNotNull(backstack.getMostRecentView())
@@ -45,7 +44,7 @@ class BackStackTest {
     @Test
     fun `views are added to the stack`() {
         /** Instantiate with default view **/
-        val backstack = BackStack(callback, AView())
+        backstack.goTo(AView())
 
         /** Add more views **/
         backstack.goTo(BView())
@@ -67,7 +66,7 @@ class BackStackTest {
     @Test
     fun `re-uses first stack item and clears rest of stack`() {
         /** Instantiate with default view **/
-        val backstack = BackStack(callback, AView())
+        backstack.goTo(AView())
 
         /** Add more views **/
         backstack.goTo(BView())
@@ -89,7 +88,7 @@ class BackStackTest {
     @Test
     fun `re-uses second stack item and clears rest of stack`() {
         /** Instantiate with default view **/
-        val backstack = BackStack(callback, AView())
+        backstack.goTo(AView())
 
         /** Add more views **/
         backstack.goTo(BView())
@@ -112,7 +111,7 @@ class BackStackTest {
     @Test
     fun `re-uses last stack item and maintains stack`() {
         /** Instantiate with default view **/
-        val backstack = BackStack(callback, AView())
+        backstack.goTo(AView())
 
         /** Add more views **/
         backstack.goTo(BView())
@@ -133,7 +132,7 @@ class BackStackTest {
     @Test
     fun `getMostRecentView() keeps working correctly after adding new views`() {
         /** Instantiate with default view **/
-        val backstack = BackStack(callback, AView())
+        backstack.goTo(AView())
 
         /** Check 'getMostRecentView()' works **/
         assertEquals(AView::class.java, backstack.getMostRecentView()::class.java)
@@ -155,7 +154,7 @@ class BackStackTest {
     @Test
     fun `using goBack() on a full stack removes items until one stack item left`() {
         /** Instantiate with default view **/
-        val backstack = BackStack(callback, AView())
+        backstack.goTo(AView())
 
         /** Add more views **/
         backstack.goTo(BView())
@@ -184,7 +183,7 @@ class BackStackTest {
     @Test
     fun `all views apart from new are removed with clearTo()`() {
         /** Instantiate with default view **/
-        val backstack = BackStack(callback, AView())
+        backstack.goTo(AView())
 
         /** Add more views **/
         backstack.goTo(BView())

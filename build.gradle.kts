@@ -6,7 +6,6 @@ plugins {
 }
 
 buildscript {
-    gradle.extra["kotlin_version"] = "1.9.10"
     repositories {
         google()
         mavenCentral()
