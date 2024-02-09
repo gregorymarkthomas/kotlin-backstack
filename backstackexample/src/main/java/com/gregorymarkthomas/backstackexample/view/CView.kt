@@ -1,9 +1,6 @@
 package com.gregorymarkthomas.backstackexample.view
 
-import android.content.Context
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import com.gregorymarkthomas.backstack.interfaces.AndroidContextInterface
 import com.gregorymarkthomas.backstack.interfaces.BackStackInterface
 import com.gregorymarkthomas.backstack.interfaces.ModelInterface
@@ -28,9 +25,6 @@ class CView: BackStackView(), ViewInterface, View.OnClickListener {
         binding.updateDateTimeButton.setOnClickListener(this)
         binding.pageTextView.text = "C"
 
-        setupGoToSpinner(context.getContext())
-        setupClearToSpinner(context.getContext())
-
         /** This should be last. **/
         this.presenter = Presenter(this, model, backstack)
     }
@@ -51,44 +45,5 @@ class CView: BackStackView(), ViewInterface, View.OnClickListener {
 
     override fun setBackstackListView(text: String) {
         binding.backstackListTextView.text = text
-    }
-
-    private fun setupGoToSpinner(context: Context) {
-        ArrayAdapter.createFromResource(
-            context,
-            R.array.views,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.goToButton.adapter = adapter
-            binding.goToButton.setSelection(0, false)
-            binding.goToButton.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    presenter.onGoToButtonPress(position)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
-        }
-    }
-
-    private fun setupClearToSpinner(context: Context) {
-        ArrayAdapter.createFromResource(
-            context,
-            R.array.views,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.clearToButton.adapter = adapter
-            binding.clearToButton.setSelection(0, false)
-            binding.clearToButton.onItemSelectedListener = object:
-                AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    presenter.onClearToButtonPress(position)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
-        }
     }
 }

@@ -4,9 +4,6 @@ import com.gregorymarkthomas.backstack.interfaces.BackStackInterface
 import com.gregorymarkthomas.backstack.interfaces.ModelInterface
 import com.gregorymarkthomas.backstackexample.model.util.CalendarHelper
 import com.gregorymarkthomas.backstackexample.presenter.util.BackStackHelper
-import com.gregorymarkthomas.backstackexample.view.AView
-import com.gregorymarkthomas.backstackexample.view.BView
-import com.gregorymarkthomas.backstackexample.view.CView
 import com.gregorymarkthomas.backstackexample.view.ViewInterface
 import java.util.Calendar
 
@@ -30,26 +27,6 @@ class Presenter(private val view: ViewInterface,
 
     override fun onNowButtonPress() {
         updateDateTime()
-    }
-
-    override fun onGoToButtonPress(position: Int) {
-        when (position){
-            0 ->  backstack.goTo(AView())
-            1 ->  backstack.goTo(BView())
-            2 ->  backstack.goTo(CView())
-        }
-    }
-
-    override fun onClearToButtonPress(position: Int) {
-        when (position){
-            0 ->  backstack.clearTo(AView())
-            1 ->  backstack.clearTo(BView())
-            2 ->  backstack.clearTo(CView())
-        }
-    }
-
-    override fun onGoBackButtonPress() {
-        backstack.goTo(BView())
     }
 
     private fun updateDateTime() {
