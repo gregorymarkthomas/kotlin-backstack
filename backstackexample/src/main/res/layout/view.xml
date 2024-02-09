@@ -47,7 +47,7 @@
         android:layout_height="0dp"
         android:padding="@dimen/margin"
         app:layout_constraintTop_toBottomOf="@id/updateDateTimeButton"
-        app:layout_constraintBottom_toTopOf="@id/backstackControlLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 

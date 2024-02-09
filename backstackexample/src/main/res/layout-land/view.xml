@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.gregorymarkthomas.backstack.view.BackStackLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/timeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginStart="@dimen/margin" />
+
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginStart="@dimen/margin" />
+
+        <Button
+            android:id="@+id/updateDateTimeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update_date_time"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/backstackStatusLayout"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="@dimen/margin"
+        app:layout_constraintTop_toBottomOf="@+id/timeContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/pageTextView"
+            android:gravity="center"
+            android:textSize="80dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/backstackListTextView"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+
+</com.gregorymarkthomas.backstack.view.BackStackLayout>
