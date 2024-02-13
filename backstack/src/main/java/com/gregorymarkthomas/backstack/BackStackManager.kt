@@ -4,15 +4,13 @@ import com.gregorymarkthomas.backstack.interfaces.BackStackCallback
 import com.gregorymarkthomas.backstack.interfaces.BackStackInternalInterface
 import com.gregorymarkthomas.backstack.view.BackStackView
 
-class BackStackManager private constructor(): BackStackInternalInterface {
+internal class BackStackManager private constructor(): BackStackInternalInterface {
 
     private var stack: BackStack
 
     init {
         stack = BackStack()
     }
-
-    //companion object : SingletonHolder<BackStackManager, BackStackCallback>(::BackStackManager)
 
     companion object {
         val instance: BackStackManager by lazy(::BackStackManager)
