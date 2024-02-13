@@ -63,6 +63,14 @@ class MainActivityTest {
         }
     }
 
+    /**
+     * NOTE: if MainActivity is to call onCreate() upon every orientation change (under normal app
+     * operation), then this test should FAIL as MainActivity's backstack object is recreated
+     * in onCreate().
+     * This test PASSES, though, and it seems like Activity is not recreated upon every orientation
+     * change (i.e. something enabled just for testing that works like
+     * 'android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"').
+     */
     @Test fun viewsRemainsAfterOrientationChange() {
         var backstack: List<String>
         launchActivity<MainActivity>().use { scenario ->
@@ -81,7 +89,7 @@ class MainActivityTest {
                     // Do nothing
                 }
                 backstack = bsActivity.getCurrentViewClasses()
-                assertEquals(3, backstack.size)     /// TODO: WHY DOES THIS PASS??
+                assertEquals(3, backstack.size)
                 assertEquals("CView", backstack[2])
                 assertEquals("BView", backstack[1])
                 assertEquals("AView", backstack[0])
