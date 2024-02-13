@@ -28,7 +28,7 @@ class MainActivityTest {
             scenario.onActivity { activity: BackstackActivity -> run {
                 val bsActivity: BackstackActivity = activity
                 assertEquals(1, bsActivity.getCurrentViewClasses().size)
-                assertEquals(AView::class, bsActivity.getMostRecentView()::class)
+                assertEquals(AView::class, bsActivity.getMostRecentView()!!::class)
             } }
         }
     }
@@ -40,37 +40,29 @@ class MainActivityTest {
             scenario.onActivity { activity: BackstackActivity -> run {
                 val bsActivity: BackstackActivity = activity
                 bsActivity.goTo(BView())
-                assertEquals(BView::class, bsActivity.getMostRecentView()::class)
+                assertEquals(BView::class, bsActivity.getMostRecentView()!!::class)
                 bsActivity.goTo(CView())
-                assertEquals(CView::class, bsActivity.getMostRecentView()::class)
+                assertEquals(CView::class, bsActivity.getMostRecentView()!!::class)
 
                 backstack = bsActivity.getCurrentViewClasses()
                 assertEquals(3, backstack.size)
-                assertEquals(CView::class, bsActivity.getMostRecentView()::class)
+                assertEquals(CView::class, bsActivity.getMostRecentView()!!::class)
 
                 bsActivity.goTo(BView())
                 backstack = bsActivity.getCurrentViewClasses()
                 assertEquals(2, backstack.size)
-                assertEquals(BView::class, bsActivity.getMostRecentView()::class)
+                assertEquals(BView::class, bsActivity.getMostRecentView()!!::class)
 
                 bsActivity.goTo(AView())
                 backstack = bsActivity.getCurrentViewClasses()
                 assertEquals(1, backstack.size)
-                assertEquals(AView::class, bsActivity.getMostRecentView()::class)
+                assertEquals(AView::class, bsActivity.getMostRecentView()!!::class)
             } }
 
             // ... UI interactions
         }
     }
 
-    /**
-     * NOTE: if MainActivity is to call onCreate() upon every orientation change (under normal app
-     * operation), then this test should FAIL as MainActivity's backstack object is recreated
-     * in onCreate().
-     * This test PASSES, though, and it seems like Activity is not recreated upon every orientation
-     * change (i.e. something enabled just for testing that works like
-     * 'android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"').
-     */
     @Test fun viewsRemainsAfterOrientationChange() {
         var backstack: List<String>
         launchActivity<MainActivity>().use { scenario ->
@@ -82,7 +74,7 @@ class MainActivityTest {
                 bsActivity.goTo(CView())
                 backstack = bsActivity.getCurrentViewClasses()
                 assertEquals(3, backstack.size)
-                assertEquals(CView::class, bsActivity.getMostRecentView()::class)
+                assertEquals(CView::class, bsActivity.getMostRecentView()!!::class)
 
                 bsActivity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                 while(bsActivity.requestedOrientation != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
@@ -103,7 +95,7 @@ class MainActivityTest {
                 bsActivity.goTo(AView())
                 backstack = bsActivity.getCurrentViewClasses()
                 assertEquals(1, backstack.size)
-                assertEquals(AView::class, bsActivity.getMostRecentView()::class)
+                assertEquals(AView::class, bsActivity.getMostRecentView()!!::class)
                 assertEquals("AView", backstack[0])
             } }
         }
