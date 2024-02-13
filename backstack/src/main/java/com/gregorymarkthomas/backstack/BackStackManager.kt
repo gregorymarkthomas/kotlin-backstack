@@ -28,7 +28,7 @@ internal class BackStackManager private constructor(): BackStackInternalInterfac
         return stack.goBack(callback)
     }
 
-    override fun getMostRecentView(): BackStackView {
+    override fun getMostRecentView(): BackStackView? {
         return stack.getMostRecentView()
     }
 

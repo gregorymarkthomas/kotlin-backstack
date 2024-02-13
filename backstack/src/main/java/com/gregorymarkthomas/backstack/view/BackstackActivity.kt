@@ -22,7 +22,11 @@ abstract class BackstackActivity : AppCompatActivity(), BackStackInterface, Back
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        BackStackManager.instance.goTo(getInitialView(), this)
+        val recent = getMostRecentView()
+        if(recent == null)
+            goTo(getInitialView())
+        else
+            goTo(recent)
     }
 
     /**
@@ -53,7 +57,7 @@ abstract class BackstackActivity : AppCompatActivity(), BackStackInterface, Back
         return BackStackManager.instance.goBack(this)
     }
 
-    override fun getMostRecentView(): BackStackView {
+    override fun getMostRecentView(): BackStackView? {
         return BackStackManager.instance.getMostRecentView()
     }
 

@@ -42,12 +42,16 @@ class BackStack: BackStackInternalInterface {
         } catch (e: ArrayIndexOutOfBoundsException) {
             false
         }
-        callback.onViewChanged(getMostRecentView())
+        callback.onViewChanged(getMostRecentView()!!)
         return success
     }
 
-    override fun getMostRecentView(): BackStackView {
-        return stack[getMostRecentViewIndex()]
+    override fun getMostRecentView(): BackStackView? {
+        val index = getMostRecentViewIndex()
+        return if(index > -1)
+            stack[index]
+        else
+            null
     }
 
     override fun getCurrentViewClasses(): List<String> {
