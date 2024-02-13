@@ -77,22 +77,26 @@ class MainActivityTest {
                 assertEquals(CView::class, bsActivity.getMostRecentView()::class)
 
                 bsActivity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                while(bsActivity.requestedOrientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+                while(bsActivity.requestedOrientation != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
                     // Do nothing
                 }
                 backstack = bsActivity.getCurrentViewClasses()
                 assertEquals(3, backstack.size)     /// TODO: WHY DOES THIS PASS??
-                assertEquals(CView::class, bsActivity.getMostRecentView()::class)
+                assertEquals("CView", backstack[2])
+                assertEquals("BView", backstack[1])
+                assertEquals("AView", backstack[0])
 
                 bsActivity.goTo(BView())
                 backstack = bsActivity.getCurrentViewClasses()
                 assertEquals(2, backstack.size)
-                assertEquals(BView::class, bsActivity.getMostRecentView()::class)
+                assertEquals("BView", backstack[1])
+                assertEquals("AView", backstack[0])
 
                 bsActivity.goTo(AView())
                 backstack = bsActivity.getCurrentViewClasses()
                 assertEquals(1, backstack.size)
                 assertEquals(AView::class, bsActivity.getMostRecentView()::class)
+                assertEquals("AView", backstack[0])
             } }
         }
     }
