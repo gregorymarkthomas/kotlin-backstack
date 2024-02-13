@@ -1,15 +1,14 @@
 package com.gregorymarkthomas.backstack
 
 import com.gregorymarkthomas.backstack.interfaces.BackStackCallback
-import com.gregorymarkthomas.backstack.interfaces.BackStackInterface
+import com.gregorymarkthomas.backstack.interfaces.BackStackInternalInterface
 import com.gregorymarkthomas.backstack.view.BackStackView
 
 /**
  * Each view requires a few Android-related items, plus control of the backstack, hence the input arguments.
  * This is not a singleton in case the app has multiple Activities - there will be one BackStack per Activity.
  */
-class BackStack(private var callback: BackStackCallback):
-    BackStackInterface {
+class BackStack: BackStackInternalInterface {
 
     private var stack: MutableList<BackStackView> = mutableListOf()
 
@@ -17,7 +16,7 @@ class BackStack(private var callback: BackStackCallback):
     /**
      * Either finds the existing instance of the requested viewClass and uses it, or it adds a new instance if it does not yet exist.
      */
-    override fun goTo(view: BackStackView) {
+    override fun goTo(view: BackStackView, callback: BackStackCallback) {
         val viewIndex = indexOf(view)
         if(viewIndex == -1) {
             stack.add(view)
@@ -27,13 +26,13 @@ class BackStack(private var callback: BackStackCallback):
         callback.onViewChanged(view)
     }
 
-    override fun clearTo(view: BackStackView) {
+    override fun clearTo(view: BackStackView, callback: BackStackCallback) {
         stack = mutableListOf()
         stack.add(view)
         callback.onViewChanged(view)
     }
 
-    override fun goBack(): Boolean {
+    override fun goBack(callback: BackStackCallback): Boolean {
         val success = try {
             if(getMostRecentViewIndex() != 0) {
                 stack.removeAt(getMostRecentViewIndex())
