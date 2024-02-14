@@ -71,7 +71,7 @@ dependencies {
 
 ### 3. Setup your Activity 
 
-Ensure it extends `BackstackActivity()` and not the default `ComponentActivity()`.
+Ensure it extends `BackstackActivity()`.
 
 Below is a guide of an Activity implementation: you can view a working example in the `backstackexample` module of this project.
 

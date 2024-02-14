@@ -22,17 +22,9 @@ abstract class BackStackView {
         return view!!
     }
 
-    /**
-     * Manually called by the Activity in onViewChanged()
-     */
-    fun onInitialised(backstack: BackStackInterface, model: ModelInterface,
-                      context: AndroidContextInterface) {
-        onViewInitialised(backstack, model, context)
-    }
-
     protected abstract fun getTag(): String
     protected abstract fun getLayout(): Int
-    protected abstract fun onViewInitialised(backstack: BackStackInterface, model: ModelInterface,
+    abstract fun onViewInitialised(backstack: BackStackInterface, model: ModelInterface,
                                              context: AndroidContextInterface)
 
     /********** private */

@@ -36,7 +36,7 @@ abstract class BackstackActivity : AppCompatActivity(), BackStackInterface, Back
         removeAllViews()
         val view = backstackView.inflate(this)
         addView(view)
-        backstackView.onInitialised(this, getModel(), this)
+        backstackView.onViewInitialised(this, getModel(), this)
     }
 
     override fun onBackPressed() {
