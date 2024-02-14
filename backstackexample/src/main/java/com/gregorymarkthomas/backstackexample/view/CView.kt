@@ -7,11 +7,11 @@ import com.gregorymarkthomas.backstack.interfaces.ModelInterface
 import com.gregorymarkthomas.backstack.view.BackStackView
 import com.gregorymarkthomas.backstackexample.R
 import com.gregorymarkthomas.backstackexample.databinding.ViewBinding
-import com.gregorymarkthomas.backstackexample.presenter.Presenter
-import com.gregorymarkthomas.backstackexample.presenter.PresenterInterface
+import com.gregorymarkthomas.backstackexample.presenter.ExamplePresenter
+import com.gregorymarkthomas.backstackexample.presenter.ExamplePresenterInterface
 
 class CView: BackStackView(), ViewInterface, View.OnClickListener {
-    private lateinit var presenter: PresenterInterface
+    private lateinit var presenter: ExamplePresenterInterface
     private lateinit var binding: ViewBinding
 
     /********** public */
@@ -19,14 +19,18 @@ class CView: BackStackView(), ViewInterface, View.OnClickListener {
 
     override fun getLayout(): Int = R.layout.view
 
-    override fun onViewInitialised(backstack: BackStackInterface, model: ModelInterface,
-                                   context: AndroidContextInterface) {
+    override fun onCreate(backstack: BackStackInterface, model: ModelInterface,
+                          context: AndroidContextInterface) {
         binding = ViewBinding.bind(view!!)
         binding.updateDateTimeButton.setOnClickListener(this)
         binding.pageTextView.text = "C"
 
         /** This should be last. **/
-        this.presenter = Presenter(this, model, backstack)
+        this.presenter = ExamplePresenter(this, model, backstack)
+    }
+
+    override fun onResume(context: AndroidContextInterface) {
+        this.presenter.onResume()
     }
 
     override fun onClick(v: View?) {

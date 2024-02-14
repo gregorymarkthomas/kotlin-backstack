@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import com.gregorymarkthomas.backstack.interfaces.AndroidContextInterface
 import com.gregorymarkthomas.backstack.interfaces.ModelInterface
 import com.gregorymarkthomas.backstack.view.BackStackHelper
 import com.gregorymarkthomas.backstack.view.BackStackLayout
@@ -23,8 +22,7 @@ import com.gregorymarkthomas.backstackexample.view.AView
  * Solution to spinner call to onItemSelected() after orientation changes is thanks to
  * https://itecnote.com/tecnote/android-spinner-onitemselected-called-multiple-times-after-screen-rotation/
  */
-class MainActivity : AppCompatActivity(), BackStackHelper.ActivityInterface, View.OnClickListener,
-    AndroidContextInterface {
+class MainActivity : AppCompatActivity(), BackStackHelper.ActivityInterface, View.OnClickListener {
     private lateinit var presenter: ActivityPresenterInterface
     private lateinit var model: ModelInterface
     private lateinit var binding: ActivityMainBinding

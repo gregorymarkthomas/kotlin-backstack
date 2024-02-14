@@ -16,13 +16,16 @@ import java.util.Calendar
  * - Similar Views can share a Presenter (e.g. DayView, MonthView, YearView for a Calendar app),
  * but there should be a Presenter per feature.
  */
-class Presenter(private val view: ViewInterface,
-                private val model: ModelInterface,
-                private val backstack: BackStackInterface): PresenterInterface {
+class ExamplePresenter(private val view: ViewInterface,
+                       private val model: ModelInterface,
+                       private val backstack: BackStackInterface): ExamplePresenterInterface {
 
     init {
         updateDateTime()
         view.setBackstackListView(BackStackHelper.toString(backstack.getCurrentViewClasses()))
+    }
+    override fun onResume() {
+        updateDateTime()
     }
 
     override fun onNowButtonPress() {

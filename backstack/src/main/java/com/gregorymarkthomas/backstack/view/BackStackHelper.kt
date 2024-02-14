@@ -2,11 +2,11 @@ package com.gregorymarkthomas.backstack.view
 
 import com.gregorymarkthomas.backstack.BackStackManager
 import com.gregorymarkthomas.backstack.interfaces.AndroidContextInterface
-import com.gregorymarkthomas.backstack.interfaces.BackStackCallback
 import com.gregorymarkthomas.backstack.interfaces.BackStackInterface
+import com.gregorymarkthomas.backstack.interfaces.BackStackViewCallback
 import com.gregorymarkthomas.backstack.interfaces.ModelInterface
 
-class BackStackHelper(private val activity: ActivityInterface): BackStackInterface, BackStackCallback {
+class BackStackHelper(private val activity: ActivityInterface): BackStackInterface, BackStackViewCallback {
 
     fun onCreate() {
         val recent = getMostRecentView()
@@ -20,13 +20,16 @@ class BackStackHelper(private val activity: ActivityInterface): BackStackInterfa
         BackStackManager.instance.goBack(this)
     }
 
-    /**
-     * Once BackStackView has been added to MainActivity, we can then say it has been initialised.
-     */
-    override fun onViewChanged(backstackView: BackStackView) {
+    override fun onCreate(backstackView: BackStackView) {
         activity.removeAllViews()
         activity.addView(backstackView.inflate(activity))
-        backstackView.onViewInitialised(this, activity.getModel(), activity)
+        backstackView.onCreate(this, activity.getModel(), activity)
+    }
+
+    override fun onResume(backstackView: BackStackView) {
+        activity.removeAllViews()
+        activity.addView(backstackView.inflate(activity))
+        backstackView.onResume(activity)
     }
 
     override fun goTo(view: BackStackView) {

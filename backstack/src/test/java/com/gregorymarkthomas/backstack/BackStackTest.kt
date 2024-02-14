@@ -1,6 +1,6 @@
 package com.gregorymarkthomas.backstack
 
-import com.gregorymarkthomas.backstack.interfaces.BackStackCallback
+import com.gregorymarkthomas.backstack.interfaces.BackStackViewCallback
 import com.gregorymarkthomas.backstack.view.AView
 import com.gregorymarkthomas.backstack.view.BView
 import com.gregorymarkthomas.backstack.view.CView
@@ -23,7 +23,7 @@ class BackStackTest {
     /**
      * 'relaxUnitFun = true' will stop 'io.mockk.MockKException: no answer found for...' error for our simple use of a mocked BackStackCallback
      */
-    private val callback: BackStackCallback = mockk(relaxUnitFun = true)
+    private val callback: BackStackViewCallback = mockk(relaxUnitFun = true)
     private lateinit var backstack: BackStack
 
     @Before

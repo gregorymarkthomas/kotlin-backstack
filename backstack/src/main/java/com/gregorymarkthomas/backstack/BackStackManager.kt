@@ -1,7 +1,7 @@
 package com.gregorymarkthomas.backstack
 
-import com.gregorymarkthomas.backstack.interfaces.BackStackCallback
 import com.gregorymarkthomas.backstack.interfaces.BackStackInternalInterface
+import com.gregorymarkthomas.backstack.interfaces.BackStackViewCallback
 import com.gregorymarkthomas.backstack.view.BackStackView
 
 internal class BackStackManager private constructor(): BackStackInternalInterface {
@@ -16,15 +16,15 @@ internal class BackStackManager private constructor(): BackStackInternalInterfac
         val instance: BackStackManager by lazy(::BackStackManager)
     }
 
-    override fun goTo(view: BackStackView, callback: BackStackCallback) {
+    override fun goTo(view: BackStackView, callback: BackStackViewCallback) {
         stack.goTo(view, callback)
     }
 
-    override fun clearTo(view: BackStackView, callback: BackStackCallback) {
+    override fun clearTo(view: BackStackView, callback: BackStackViewCallback) {
         stack.clearTo(view, callback)
     }
 
-    override fun goBack(callback: BackStackCallback): Boolean {
+    override fun goBack(callback: BackStackViewCallback): Boolean {
         return stack.goBack(callback)
     }
 

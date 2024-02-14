@@ -1,7 +1,7 @@
 package com.gregorymarkthomas.backstack
 
-import com.gregorymarkthomas.backstack.interfaces.BackStackCallback
 import com.gregorymarkthomas.backstack.interfaces.BackStackInternalInterface
+import com.gregorymarkthomas.backstack.interfaces.BackStackViewCallback
 import com.gregorymarkthomas.backstack.view.BackStackView
 
 /**
@@ -16,23 +16,32 @@ class BackStack: BackStackInternalInterface {
     /**
      * Either finds the existing instance of the requested viewClass and uses it, or it adds a new instance if it does not yet exist.
      */
-    override fun goTo(view: BackStackView, callback: BackStackCallback) {
-        val viewIndex = indexOf(view)
-        if(viewIndex == -1) {
+    override fun goTo(view: BackStackView, callback: BackStackViewCallback) {
+        val index = indexOf(view)
+        if(index == -1) {
             stack.add(view)
+            callback.onCreate(view)
         } else {
-            stack = trimToExisting(stack, viewIndex)
+            stack = trimToExisting(stack, index)
+            callback.onResume(view)
         }
-        callback.onViewChanged(view)
     }
 
-    override fun clearTo(view: BackStackView, callback: BackStackCallback) {
-        stack = mutableListOf()
-        stack.add(view)
-        callback.onViewChanged(view)
+    override fun clearTo(view: BackStackView, callback: BackStackViewCallback) {
+        val index = indexOf(view)
+        if(index == -1) {
+            stack = mutableListOf()
+            stack.add(view)
+            callback.onCreate(view)
+        } else {
+            val existing = stack[index]
+            stack = mutableListOf()
+            stack.add(existing)
+            callback.onResume(existing)
+        }
     }
 
-    override fun goBack(callback: BackStackCallback): Boolean {
+    override fun goBack(callback: BackStackViewCallback): Boolean {
         val success = try {
             if(getMostRecentViewIndex() != 0) {
                 stack.removeAt(getMostRecentViewIndex())
@@ -42,7 +51,7 @@ class BackStack: BackStackInternalInterface {
         } catch (e: ArrayIndexOutOfBoundsException) {
             false
         }
-        callback.onViewChanged(getMostRecentView()!!)
+        callback.onResume(getMostRecentView()!!)
         return success
     }
 

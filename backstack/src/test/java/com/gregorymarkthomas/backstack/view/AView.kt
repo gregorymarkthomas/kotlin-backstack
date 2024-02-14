@@ -11,7 +11,11 @@ class AView(): BackStackView() {
 
     override fun getLayout(): Int = androidx.appcompat.R.layout.abc_action_bar_title_item
 
-    override fun onViewInitialised(backstack: BackStackInterface, model: ModelInterface, context: AndroidContextInterface) {
+    override fun onCreate(backstack: BackStackInterface, model: ModelInterface, context: AndroidContextInterface) {
+        /** Do nothing **/
+    }
+
+    override fun onResume(context: AndroidContextInterface) {
         /** Do nothing **/
     }
 }

@@ -4,9 +4,9 @@ import com.gregorymarkthomas.backstack.view.BackStackView
 
 
 internal interface BackStackInternalInterface {
-    fun goTo(view: BackStackView, callback: BackStackCallback)
-    fun clearTo(view: BackStackView, callback: BackStackCallback)
-    fun goBack(callback: BackStackCallback): Boolean
+    fun goTo(view: BackStackView, callback: BackStackViewCallback)
+    fun clearTo(view: BackStackView, callback: BackStackViewCallback)
+    fun goBack(callback: BackStackViewCallback): Boolean
     fun getMostRecentView(): BackStackView?
     fun getCurrentViewClasses(): List<String>
 }
