@@ -1,12 +1,10 @@
 package com.gregorymarkthomas.backstackexample
 
 import android.content.pm.ActivityInfo
-import android.os.Handler
 import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import com.gregorymarkthomas.backstack.view.BackstackActivity
+import com.gregorymarkthomas.backstack.view.BackStackHelper
 import com.gregorymarkthomas.backstackexample.view.AView
 import com.gregorymarkthomas.backstackexample.view.BView
 import com.gregorymarkthomas.backstackexample.view.CView
@@ -25,8 +23,8 @@ class MainActivityTest {
 
     @Test fun showsDefaultView() {
         launchActivity<MainActivity>().use { scenario ->
-            scenario.onActivity { activity: BackstackActivity -> run {
-                val bsActivity: BackstackActivity = activity
+            scenario.onActivity { activity: BackStackHelper -> run {
+                val bsActivity: BackStackHelper = activity
                 assertEquals(1, bsActivity.getCurrentViewClasses().size)
                 assertEquals(AView::class, bsActivity.getMostRecentView()!!::class)
             } }
@@ -37,8 +35,8 @@ class MainActivityTest {
         var backstack: List<String>
         launchActivity<MainActivity>().use { scenario ->
 
-            scenario.onActivity { activity: BackstackActivity -> run {
-                val bsActivity: BackstackActivity = activity
+            scenario.onActivity { activity: BackStackHelper -> run {
+                val bsActivity: BackStackHelper = activity
                 bsActivity.goTo(BView())
                 assertEquals(BView::class, bsActivity.getMostRecentView()!!::class)
                 bsActivity.goTo(CView())
@@ -67,8 +65,8 @@ class MainActivityTest {
         var backstack: List<String>
         launchActivity<MainActivity>().use { scenario ->
 
-            scenario.onActivity { activity: BackstackActivity -> run {
-                val bsActivity: BackstackActivity = activity
+            scenario.onActivity { activity: BackStackHelper -> run {
+                val bsActivity: BackStackHelper = activity
                 bsActivity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                 bsActivity.goTo(BView())
                 bsActivity.goTo(CView())

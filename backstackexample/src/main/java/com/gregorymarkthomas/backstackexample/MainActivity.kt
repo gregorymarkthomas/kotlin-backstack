@@ -6,10 +6,12 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
+import com.gregorymarkthomas.backstack.interfaces.AndroidContextInterface
 import com.gregorymarkthomas.backstack.interfaces.ModelInterface
+import com.gregorymarkthomas.backstack.view.BackStackHelper
 import com.gregorymarkthomas.backstack.view.BackStackLayout
 import com.gregorymarkthomas.backstack.view.BackStackView
-import com.gregorymarkthomas.backstack.view.BackstackActivity
 import com.gregorymarkthomas.backstackexample.databinding.ActivityMainBinding
 import com.gregorymarkthomas.backstackexample.model.Model
 import com.gregorymarkthomas.backstackexample.model.repo.LocalDateTimeRepository
@@ -21,10 +23,12 @@ import com.gregorymarkthomas.backstackexample.view.AView
  * Solution to spinner call to onItemSelected() after orientation changes is thanks to
  * https://itecnote.com/tecnote/android-spinner-onitemselected-called-multiple-times-after-screen-rotation/
  */
-class MainActivity : BackstackActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), BackStackHelper.ActivityInterface, View.OnClickListener,
+    AndroidContextInterface {
     private lateinit var presenter: ActivityPresenterInterface
-    private lateinit var binding: ActivityMainBinding
     private lateinit var model: ModelInterface
+    private lateinit var binding: ActivityMainBinding
+    private val backstacker = BackStackHelper(this)
     private var isGoToSpinnerSelected: Boolean = false
     private var isClearToSpinnerSelected: Boolean = false
 
@@ -36,9 +40,15 @@ class MainActivity : BackstackActivity(), View.OnClickListener {
         setupClearToSpinner(getContext())
 
         this.model = Model(LocalDateTimeRepository())
-        this.presenter = ActivityPresenter(this)
+        this.presenter = ActivityPresenter(backstacker)
 
+        backstacker.onCreate()
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        backstacker.onBackPressed()
     }
 
     override fun onClick(v: View?) {
@@ -61,6 +71,10 @@ class MainActivity : BackstackActivity(), View.OnClickListener {
 
     override fun getModel(): ModelInterface {
         return model
+    }
+
+    override fun getContext(): Context {
+        return this
     }
 
     private fun setupGoToSpinner(context: Context) {
