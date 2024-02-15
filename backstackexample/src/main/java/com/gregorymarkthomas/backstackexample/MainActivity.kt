@@ -4,12 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.gregorymarkthomas.backstack.interfaces.ModelInterface
 import com.gregorymarkthomas.backstack.util.BackStackHelper
-import com.gregorymarkthomas.backstack.view.BackStackLayout
 import com.gregorymarkthomas.backstack.view.BackStackView
 import com.gregorymarkthomas.backstackexample.databinding.ActivityMainBinding
 import com.gregorymarkthomas.backstackexample.model.Model
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), BackStackHelper.ActivityInterface, Vie
         return AView()
     }
 
-    override fun addView(view: BackStackLayout) {
+    override fun addView(view: ViewGroup) {
         binding.container.addView(view)
     }
 
