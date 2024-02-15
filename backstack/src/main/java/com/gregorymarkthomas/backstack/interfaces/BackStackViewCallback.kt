@@ -4,5 +4,4 @@ import com.gregorymarkthomas.backstack.view.BackStackView
 
 interface BackStackViewCallback {
     fun onCreate(backstackView: BackStackView)
-    fun onResume(backstackView: BackStackView)
 }

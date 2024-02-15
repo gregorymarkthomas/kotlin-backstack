@@ -37,13 +37,14 @@ class BackStack: BackStackInternalInterface {
         val success = try {
             if(getMostRecentViewIndex() != 0) {
                 stack.removeAt(getMostRecentViewIndex())
+                callback.onCreate(getMostRecentView()!!)
                 true
             } else
                 false
         } catch (e: ArrayIndexOutOfBoundsException) {
             false
         }
-        callback.onResume(getMostRecentView()!!)
+
         return success
     }
 

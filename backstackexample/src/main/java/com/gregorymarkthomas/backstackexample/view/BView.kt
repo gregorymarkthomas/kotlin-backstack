@@ -29,11 +29,6 @@ class BView: BackStackView(), ViewInterface, View.OnClickListener {
         this.presenter = ExamplePresenter(this, model, backstack)
     }
 
-    override fun onResume(context: AndroidContextInterface) {
-        binding = ViewBinding.bind(view!!)
-        this.presenter.onResume()
-    }
-
     override fun onClick(v: View?) {
         when(v!!.id) {
             R.id.updateDateTimeButton -> presenter.onNowButtonPress()

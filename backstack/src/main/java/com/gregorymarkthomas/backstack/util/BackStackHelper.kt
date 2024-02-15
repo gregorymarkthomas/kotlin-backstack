@@ -28,12 +28,6 @@ class BackStackHelper(private val activity: ActivityInterface): BackStackInterfa
         backstackView.onCreate(this, activity.getModel(), activity)
     }
 
-    override fun onResume(backstackView: BackStackView) {
-        activity.removeAllViews()
-        activity.addView(backstackView.inflate(activity))
-        backstackView.onResume(activity)
-    }
-
     override fun goTo(view: BackStackView) {
         BackStackManager.instance.goTo(view, this)
     }

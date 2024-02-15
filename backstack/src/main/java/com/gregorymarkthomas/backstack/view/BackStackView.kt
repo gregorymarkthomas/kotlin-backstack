@@ -25,7 +25,6 @@ abstract class BackStackView {
     protected abstract fun getLayout(): Int
     abstract fun onCreate(backstack: BackStackInterface, model: ModelInterface,
                           context: AndroidContextInterface)
-    abstract fun onResume(context: AndroidContextInterface)
 
     /********** private */
     private fun createLayout(context: AndroidContextInterface): ViewGroup {
