@@ -4,7 +4,7 @@ import android.content.pm.ActivityInfo
 import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.gregorymarkthomas.backstack.view.BackStackHelper
+import com.gregorymarkthomas.backstack.util.BackStackHelper
 import com.gregorymarkthomas.backstackexample.view.AView
 import com.gregorymarkthomas.backstackexample.view.BView
 import com.gregorymarkthomas.backstackexample.view.CView

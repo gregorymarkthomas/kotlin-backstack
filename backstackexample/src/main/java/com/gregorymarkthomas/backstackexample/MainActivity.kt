@@ -8,7 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.gregorymarkthomas.backstack.interfaces.ModelInterface
-import com.gregorymarkthomas.backstack.view.BackStackHelper
+import com.gregorymarkthomas.backstack.util.BackStackHelper
 import com.gregorymarkthomas.backstack.view.BackStackLayout
 import com.gregorymarkthomas.backstack.view.BackStackView
 import com.gregorymarkthomas.backstackexample.databinding.ActivityMainBinding

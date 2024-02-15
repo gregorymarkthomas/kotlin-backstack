@@ -1,10 +1,12 @@
-package com.gregorymarkthomas.backstack.view
+package com.gregorymarkthomas.backstack.util
 
 import com.gregorymarkthomas.backstack.BackStackManager
 import com.gregorymarkthomas.backstack.interfaces.AndroidContextInterface
 import com.gregorymarkthomas.backstack.interfaces.BackStackInterface
 import com.gregorymarkthomas.backstack.interfaces.BackStackViewCallback
 import com.gregorymarkthomas.backstack.interfaces.ModelInterface
+import com.gregorymarkthomas.backstack.view.BackStackLayout
+import com.gregorymarkthomas.backstack.view.BackStackView
 
 class BackStackHelper(private val activity: ActivityInterface): BackStackInterface, BackStackViewCallback {
 

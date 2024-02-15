@@ -14,31 +14,23 @@ class BackStack: BackStackInternalInterface {
 
     /********** public */
     /**
-     * Either finds the existing instance of the requested viewClass and uses it, or it adds a new instance if it does not yet exist.
+     * Always adds new instance of [view]; will replace if already exists.
      */
     override fun goTo(view: BackStackView, callback: BackStackViewCallback) {
-        val index = indexOf(view)
-        if(index == -1) {
-            stack.add(view)
-            callback.onCreate(view)
-        } else {
-            stack = trimToExisting(stack, index)
-            callback.onResume(view)
-        }
+        val index = indexOf(view::class.java)
+        if(index != -1)
+            stack = trim(stack, index)
+        stack.add(view)
+        callback.onCreate(view)
     }
 
+    /**
+     * Clears stack and makes [view] the only element.
+     */
     override fun clearTo(view: BackStackView, callback: BackStackViewCallback) {
-        val index = indexOf(view)
-        if(index == -1) {
-            stack = mutableListOf()
-            stack.add(view)
-            callback.onCreate(view)
-        } else {
-            val existing = stack[index]
-            stack = mutableListOf()
-            stack.add(existing)
-            callback.onResume(existing)
-        }
+        stack = mutableListOf()
+        stack.add(view)
+        callback.onCreate(view)
     }
 
     override fun goBack(callback: BackStackViewCallback): Boolean {
@@ -75,15 +67,15 @@ class BackStack: BackStackInternalInterface {
     /**
      * Looks in the backstack for the given View
      */
-    private fun indexOf(view: BackStackView): Int {
-        return stack.indexOfLast { it::class.java == view::class.java }
+    private fun indexOf(view: Class<out BackStackView>): Int {
+        return stack.indexOfLast { it::class.java == view }
     }
 
     /**
-     * This removes views from the top of the stack to make the requested view the most recent view
+     * This removes views from the top of the stack, INCLUDING the the requested index.
      */
-    private fun trimToExisting(stack: MutableList<BackStackView>, newViewIndex: Int): MutableList<BackStackView> {
-        return stack.subList(0, newViewIndex + 1)
+    private fun trim(stack: MutableList<BackStackView>, index: Int): MutableList<BackStackView> {
+        return stack.subList(0, index)
     }
 
     /**

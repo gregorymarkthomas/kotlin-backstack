@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <android.widget.TextView
         android:id="@+id/dateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
+    <android.widget.TextView
         android:id="@+id/timeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/updateDateTimeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,21 +51,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
+        <android.widget.TextView
             android:id="@+id/pageTextView"
             android:gravity="center"
             android:textSize="60dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
+        <android.widget.TextView
             android:id="@+id/backstackListTextView"
             android:gravity="center"
             android:textSize="22dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
     </LinearLayout>
-
-
 </com.gregorymarkthomas.backstack.view.BackStackLayout>

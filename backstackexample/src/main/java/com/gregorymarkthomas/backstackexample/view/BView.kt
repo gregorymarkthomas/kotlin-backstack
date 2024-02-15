@@ -30,6 +30,7 @@ class BView: BackStackView(), ViewInterface, View.OnClickListener {
     }
 
     override fun onResume(context: AndroidContextInterface) {
+        binding = ViewBinding.bind(view!!)
         this.presenter.onResume()
     }
 
