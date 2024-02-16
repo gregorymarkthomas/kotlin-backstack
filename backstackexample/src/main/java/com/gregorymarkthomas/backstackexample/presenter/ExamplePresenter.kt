@@ -18,7 +18,7 @@ import java.util.Calendar
  */
 class ExamplePresenter(private val view: ViewInterface,
                        private val model: ModelInterface,
-                       private val backstack: BackStackInterface): ExamplePresenterInterface {
+                       private val backstack: BackStackInterface): ExamplePresenterInterface, OnResumePresenterInterface {
 
     init {
         updateDateTime()
