@@ -9,13 +9,27 @@ internal class BackStackInternal: BackStackInternalInterface {
 
     /********** public */
     /**
-     * Always adds new instance of [view]; will replace if already exists.
+     * Brings input view to top of stack - always adds new instance of [view],
+     * and will replace if already exists.
      */
     override fun goTo(view: BackStackView): BackStackView {
         val index = indexOf(view::class.java)
         if(index != -1)
             stack = trim(stack, index)
         stack.add(view)
+        return view
+    }
+
+    /**
+     * Resumes existing requested [viewClass], unless not found or view is on top of stack.
+     */
+    override fun resumeTo(viewClass: Class<out BackStackView>): BackStackView? {
+        var view: BackStackView? = null
+        val index = indexOf(viewClass)
+        if(index != -1 && index != (stack.size - 1)) {
+            stack = trim(stack, index + 1)
+            view = getMostRecentView()
+        }
         return view
     }
 
@@ -27,6 +41,7 @@ internal class BackStackInternal: BackStackInternalInterface {
         stack.add(view)
         return view
     }
+
 
     /**
      * Destroys latest view and retrieves the second-from-most-recent view.

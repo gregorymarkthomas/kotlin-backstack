@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(), BackStack.ActivityInterface, View.OnCl
     private lateinit var binding: ActivityMainBinding
     private val backstack = BackStack(this)
     private var isGoToSpinnerSelected: Boolean = false
+    private var isResumeToSpinnerSelected: Boolean = false
     private var isClearToSpinnerSelected: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity(), BackStack.ActivityInterface, View.OnCl
         setContentView(binding.root)
         binding.goBackButton.setOnClickListener(this)
         setupGoToSpinner(getContext())
+        setupResumeToSpinner(getContext())
         setupClearToSpinner(getContext())
 
         this.model = Model(LocalDateTimeRepository())
@@ -94,6 +96,32 @@ class MainActivity : AppCompatActivity(), BackStack.ActivityInterface, View.OnCl
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     if(isGoToSpinnerSelected)
                         presenter.onGoToButtonPress(position)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+        }
+    }
+
+    private fun setupResumeToSpinner(context: Context) {
+        ArrayAdapter.createFromResource(
+            context,
+            R.array.views,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.resumeToButton.adapter = adapter
+            binding.resumeToButton.setSelection(0, false)
+            binding.resumeToButton.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    isResumeToSpinnerSelected = true
+                    return false
+                }
+            })
+            binding.resumeToButton.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    if(isResumeToSpinnerSelected)
+                        presenter.onResumeToButtonPress(position)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}

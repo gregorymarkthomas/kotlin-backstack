@@ -62,6 +62,31 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/resumeToButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button"
+            android:text="@string/resume_to"
+            android:padding="@dimen/margin"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginStart="@dimen/margin"
+            app:layout_constraintBottom_toTopOf="@id/clearToLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/resumeToLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resume_to"
+            android:textSize = "20dp"
+            android:layout_marginTop="@dimen/margin"
+            app:layout_constraintBottom_toTopOf="@id/resumeToButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/goToButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -71,7 +96,7 @@
             android:layout_marginTop="@dimen/margin"
             android:layout_marginEnd="@dimen/margin"
             android:layout_marginStart="@dimen/margin"
-            app:layout_constraintBottom_toTopOf="@id/clearToLabel"
+            app:layout_constraintBottom_toTopOf="@id/resumeToLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

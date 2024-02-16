@@ -25,16 +25,24 @@ class AView: BackStackView(), ViewInterface, OnClickListener {
                           context: AndroidContextInterface) {
         binding = ViewBinding.bind(view!!)
         binding.updateDateTimeButton.setOnClickListener(this)
-        binding.pageTextView.text = "A"
 
         /** This should be last as Presenter will likely use views defined above. **/
-        this.presenter = ExamplePresenter(this, model as ExampleModelInterface, backstack)
+        this.presenter = ExamplePresenter("A", this, model as ExampleModelInterface, backstack)
+    }
+
+    override fun onResume(context: AndroidContextInterface) {
+        binding = ViewBinding.bind(view!!)
+        this.presenter.onResume()
     }
 
     override fun onClick(v: View?) {
         when(v!!.id) {
             R.id.updateDateTimeButton -> presenter.onNowButtonPress()
         }
+    }
+
+    override fun setViewName(name: String) {
+        binding.pageTextView.text = name
     }
 
     override fun setDateView(dayOfMonth: Int, monthOfYear: String, year: Int) {

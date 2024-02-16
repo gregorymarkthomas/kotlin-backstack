@@ -14,11 +14,17 @@ class BackStack(private val activity: ActivityInterface): BackStackInterface {
         if(recent == null)
             goTo(activity.getInitialView())
         else
-            goTo(recent)
+            resumeTo(recent::class.java)
     }
 
     override fun goTo(view: BackStackView) {
         onViewChanged(BackStackManager.instance.goTo(view))
+    }
+
+    override fun resumeTo(viewClass: Class<out BackStackView>) {
+        val view = BackStackManager.instance.resumeTo(viewClass)
+        if(view != null)
+            onViewResumed(view)
     }
 
     override fun clearTo(view: BackStackView) {
@@ -43,6 +49,12 @@ class BackStack(private val activity: ActivityInterface): BackStackInterface {
         activity.removeAllViews()
         activity.addView(view.inflate(activity))
         view.onCreate(this, activity.getModel(), activity)
+    }
+
+    private fun onViewResumed(view: BackStackView) {
+        activity.removeAllViews()
+        activity.addView(view.inflate(activity))
+        view.onResume(activity)
     }
 
     interface ActivityInterface: AndroidContextInterface {

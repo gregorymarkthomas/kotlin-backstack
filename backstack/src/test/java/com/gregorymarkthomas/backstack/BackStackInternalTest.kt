@@ -6,6 +6,7 @@ import com.gregorymarkthomas.backstack.view.BView
 import com.gregorymarkthomas.backstack.view.CView
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 
@@ -192,5 +193,54 @@ class BackStackInternalTest {
         val stack = backstack.getCurrentViewClasses()
         assertEquals(1, stack.size)
         assertEquals("AView", stack[0])
+    }
+
+    @Test
+    fun `resuming to view clears stack`() {
+        /** Instantiate with views **/
+        backstack.goTo(AView())
+        backstack.goTo(BView())
+        backstack.goTo(CView())
+
+        backstack.resumeTo(AView::class.java)
+
+        /** Check stack has 1 view **/
+        val stack = backstack.getCurrentViewClasses()
+        assertEquals(1, stack.size)
+        assertEquals("AView", stack[0])
+    }
+
+    @Test
+    fun `resuming to view clears some stack`() {
+        /** Instantiate with views **/
+        backstack.goTo(AView())
+        backstack.goTo(BView())
+        backstack.goTo(CView())
+
+        backstack.resumeTo(BView::class.java)
+
+        /** Check stack has 2 views **/
+        val stack = backstack.getCurrentViewClasses()
+        assertEquals(2, stack.size)
+        assertEquals("AView", stack[0])
+        assertEquals("BView", stack[1])
+    }
+
+    @Test
+    fun `cannot resume to only view`() {
+        backstack.goTo(AView())
+        assertNull(backstack.resumeTo(AView::class.java))
+    }
+
+    /**
+     * NOTE: Hashcode uniqueness is not guaranteed.
+     * https://stackoverflow.com/questions/909843/how-to-get-the-unique-id-of-an-object-which-overrides-hashcode#answer-909861
+     */
+    @Test
+    fun `resuming uses object from stack`() {
+        val original = AView()
+        backstack.goTo(original)
+        backstack.goTo(BView())
+        assertEquals(original.hashCode(), backstack.resumeTo(AView::class.java).hashCode())
     }
 }

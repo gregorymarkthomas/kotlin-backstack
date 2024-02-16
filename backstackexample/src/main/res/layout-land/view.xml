@@ -55,7 +55,8 @@
         <android.widget.TextView
             android:id="@+id/pageTextView"
             android:gravity="center"
-            android:textSize="80dp"
+            android:maxLines="2"
+            android:textSize="50dp"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
@@ -64,7 +65,7 @@
             android:id="@+id/backstackListTextView"
             android:gravity="center"
             android:textSize="20dp"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
     </LinearLayout>

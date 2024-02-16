@@ -2,6 +2,7 @@
     <string name="app_name">Backstack Example</string>
     <string name="update_date_time">Update time</string>
     <string name="go_to">Go to:</string>
+    <string name="resume_to">Resume to:</string>
     <string name="clear_to">Clear to:</string>
     <string name="go_back">Go Back</string>
 </resources>

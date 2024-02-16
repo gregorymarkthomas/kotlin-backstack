@@ -26,6 +26,8 @@ abstract class BackStackView {
     abstract fun onCreate(backstack: BackStackInterface, model: ModelInterface,
                           context: AndroidContextInterface)
 
+    abstract fun onResume(context: AndroidContextInterface)
+
     /********** private */
     private fun createLayout(context: AndroidContextInterface): ViewGroup {
         val parent = ViewGroup.inflate(context.getContext(), getLayout(), null)

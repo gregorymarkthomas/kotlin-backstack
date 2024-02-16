@@ -15,6 +15,14 @@ class ActivityPresenter(private val backstack: BackStackInterface): ActivityPres
         }
     }
 
+    override fun onResumeToButtonPress(position: Int) {
+        when (position){
+            0 ->  backstack.resumeTo(AView::class.java)
+            1 ->  backstack.resumeTo(BView::class.java)
+            2 ->  backstack.resumeTo(CView::class.java)
+        }
+    }
+
     override fun onClearToButtonPress(position: Int) {
         when (position){
             0 ->  backstack.clearTo(AView())

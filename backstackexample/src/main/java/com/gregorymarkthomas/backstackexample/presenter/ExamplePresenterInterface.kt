@@ -1,5 +1,5 @@
 package com.gregorymarkthomas.backstackexample.presenter
 
-interface ExamplePresenterInterface {
+interface ExamplePresenterInterface: OnResumePresenterInterface {
     fun onNowButtonPress()
 }

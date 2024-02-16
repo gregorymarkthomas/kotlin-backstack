@@ -15,6 +15,10 @@ internal class BackStackManager private constructor(): BackStackInternalInterfac
         return stack.goTo(view)
     }
 
+    override fun resumeTo(viewClass: Class<out BackStackView>): BackStackView? {
+        return stack.resumeTo(viewClass)
+    }
+
     override fun clearTo(view: BackStackView): BackStackView {
         return stack.clearTo(view)
     }
