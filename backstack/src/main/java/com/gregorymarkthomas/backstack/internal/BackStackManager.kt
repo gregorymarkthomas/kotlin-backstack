@@ -1,11 +1,11 @@
-package com.gregorymarkthomas.backstack
+package com.gregorymarkthomas.backstack.internal
 
-import com.gregorymarkthomas.backstack.interfaces.BackStackInternalInterface
+import com.gregorymarkthomas.backstack.internal.interfaces.BackStackInternalInterface
 import com.gregorymarkthomas.backstack.view.BackStackView
 
 internal class BackStackManager private constructor(): BackStackInternalInterface {
 
-    private var stack: BackStack = BackStack()
+    private var stack: BackStackInternal = BackStackInternal()
 
     companion object {
         val instance: BackStackManager by lazy(::BackStackManager)

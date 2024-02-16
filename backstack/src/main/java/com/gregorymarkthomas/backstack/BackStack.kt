@@ -1,89 +1,54 @@
 package com.gregorymarkthomas.backstack
 
-import com.gregorymarkthomas.backstack.interfaces.BackStackInternalInterface
+import android.view.ViewGroup
+import com.gregorymarkthomas.backstack.interfaces.AndroidContextInterface
+import com.gregorymarkthomas.backstack.interfaces.BackStackInterface
+import com.gregorymarkthomas.backstack.interfaces.ModelInterface
+import com.gregorymarkthomas.backstack.internal.BackStackManager
 import com.gregorymarkthomas.backstack.view.BackStackView
 
-class BackStack: BackStackInternalInterface {
+class BackStack(private val activity: ActivityInterface): BackStackInterface {
 
-    private var stack: MutableList<BackStackView> = mutableListOf()
-
-    /********** public */
-    /**
-     * Always adds new instance of [view]; will replace if already exists.
-     */
-    override fun goTo(view: BackStackView): BackStackView {
-        val index = indexOf(view::class.java)
-        if(index != -1)
-            stack = trim(stack, index)
-        stack.add(view)
-        return view
-    }
-
-    /**
-     * Clears stack and makes [view] the only element.
-     */
-    override fun clearTo(view: BackStackView): BackStackView {
-        stack = mutableListOf()
-        stack.add(view)
-        return view
-    }
-
-    /**
-     * Destroys latest view and retrieves the second-from-most-recent view.
-     */
-    override fun goBack(): BackStackView? {
-        return try {
-            if(getMostRecentViewIndex() != 0) {
-                stack.removeAt(getMostRecentViewIndex())
-                getMostRecentView()!!
-            } else
-                null
-        } catch (e: ArrayIndexOutOfBoundsException) {
-            null
-        }
-    }
-
-    /**
-     * Retrieves the most-recent view in the stack.
-     */
-    override fun getMostRecentView(): BackStackView? {
-        val index = getMostRecentViewIndex()
-        return if(index > -1)
-            stack[index]
+    fun onCreate() {
+        val recent = getMostRecentView()
+        if(recent == null)
+            goTo(activity.getInitialView())
         else
-            null
+            goTo(recent)
     }
 
-    /**
-     * Returns the stack as a list of class names.
-     */
+    override fun goTo(view: BackStackView) {
+        onViewChanged(BackStackManager.instance.goTo(view))
+    }
+
+    override fun clearTo(view: BackStackView) {
+        onViewChanged(BackStackManager.instance.clearTo(view))
+    }
+
+    override fun goBack() {
+        val view = BackStackManager.instance.goBack()
+        if (view != null)
+            onViewChanged(view)
+    }
+
+    override fun getMostRecentView(): BackStackView? {
+        return BackStackManager.instance.getMostRecentView()
+    }
+
     override fun getCurrentViewClasses(): List<String> {
-        val classNames = ArrayList<String>(stack.size)
-        for (view in stack) {
-            classNames.add(view::class.simpleName!!)
-        }
-        return classNames
+        return BackStackManager.instance.getCurrentViewClasses()
     }
 
-    /********** private */
-    /**
-     * Looks in the backstack for the given View
-     */
-    private fun indexOf(view: Class<out BackStackView>): Int {
-        return stack.indexOfLast { it::class.java == view }
+    private fun onViewChanged(view: BackStackView) {
+        activity.removeAllViews()
+        activity.addView(view.inflate(activity))
+        view.onCreate(this, activity.getModel(), activity)
     }
 
-    /**
-     * This removes views from the top of the stack, INCLUDING the the requested index.
-     */
-    private fun trim(stack: MutableList<BackStackView>, index: Int): MutableList<BackStackView> {
-        return stack.subList(0, index)
-    }
-
-    /**
-     * Retrieves the index for the last item in the stack.
-     */
-    private fun getMostRecentViewIndex(): Int {
-        return stack.size - 1
+    interface ActivityInterface: AndroidContextInterface {
+        fun getInitialView(): BackStackView
+        fun addView(view: ViewGroup)
+        fun removeAllViews()
+        fun getModel(): ModelInterface
     }
 }

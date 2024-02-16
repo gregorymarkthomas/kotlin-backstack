@@ -1,4 +1,4 @@
-package com.gregorymarkthomas.backstack.interfaces
+package com.gregorymarkthomas.backstack.internal.interfaces
 
 import com.gregorymarkthomas.backstack.view.BackStackView
 

@@ -1,5 +1,6 @@
 package com.gregorymarkthomas.backstack
 
+import com.gregorymarkthomas.backstack.internal.BackStackInternal
 import com.gregorymarkthomas.backstack.view.AView
 import com.gregorymarkthomas.backstack.view.BView
 import com.gregorymarkthomas.backstack.view.CView
@@ -15,16 +16,16 @@ import org.junit.Test
  * every { mock.call(more(5)) } returns 1
  * every { mock.call(or(less(5), eq(5))) } returns -1
  */
-class BackStackTest {
+class BackStackInternalTest {
 
     /**
      * 'relaxUnitFun = true' will stop 'io.mockk.MockKException: no answer found for...' error for our simple use of a mocked BackStackCallback
      */
-    private lateinit var backstack: BackStack
+    private lateinit var backstack: BackStackInternal
 
     @Before
     fun init() {
-        backstack = BackStack()
+        backstack = BackStackInternal()
     }
 
     @Test
