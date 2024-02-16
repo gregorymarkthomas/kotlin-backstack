@@ -1,11 +1,8 @@
 package com.gregorymarkthomas.backstack
 
-import com.gregorymarkthomas.backstack.interfaces.BackStackViewCallback
 import com.gregorymarkthomas.backstack.view.AView
 import com.gregorymarkthomas.backstack.view.BView
 import com.gregorymarkthomas.backstack.view.CView
-import io.mockk.clearMocks
-import io.mockk.mockk
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -23,13 +20,11 @@ class BackStackTest {
     /**
      * 'relaxUnitFun = true' will stop 'io.mockk.MockKException: no answer found for...' error for our simple use of a mocked BackStackCallback
      */
-    private val callback: BackStackViewCallback = mockk(relaxUnitFun = true)
     private lateinit var backstack: BackStack
 
     @Before
     fun init() {
-        clearMocks(callback)
-        backstack = BackStack(callback)
+        backstack = BackStack()
     }
 
     @Test
@@ -38,7 +33,7 @@ class BackStackTest {
 
         /** then **/
         assertNotNull(backstack.getMostRecentView())
-        assertEquals(AView::class.java, backstack.getMostRecentView()::class.java)
+        assertEquals(AView::class.java, backstack.getMostRecentView()!!::class.java)
     }
 
     @Test
@@ -135,20 +130,20 @@ class BackStackTest {
         backstack.goTo(AView())
 
         /** Check 'getMostRecentView()' works **/
-        assertEquals(AView::class.java, backstack.getMostRecentView()::class.java)
+        assertEquals(AView::class.java, backstack.getMostRecentView()!!::class.java)
 
 
         /** Add another view **/
         backstack.goTo(BView())
 
         /** Check 'getMostRecentView()' works **/
-        assertEquals(BView::class.java, backstack.getMostRecentView()::class.java)
+        assertEquals(BView::class.java, backstack.getMostRecentView()!!::class.java)
 
         /** Add another view **/
         backstack.goTo(CView())
 
         /** Check 'getMostRecentView()' works **/
-        assertEquals(CView::class.java, backstack.getMostRecentView()::class.java)
+        assertEquals(CView::class.java, backstack.getMostRecentView()!!::class.java)
     }
 
     @Test

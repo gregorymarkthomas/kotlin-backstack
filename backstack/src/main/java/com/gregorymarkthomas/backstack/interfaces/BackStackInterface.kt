@@ -5,7 +5,7 @@ import com.gregorymarkthomas.backstack.view.BackStackView
 interface BackStackInterface {
     fun goTo(view: BackStackView)
     fun clearTo(view: BackStackView)
-    fun goBack(): Boolean
+    fun goBack()
     fun getMostRecentView(): BackStackView?
     fun getCurrentViewClasses(): List<String>
 }

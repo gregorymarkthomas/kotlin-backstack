@@ -14,8 +14,4 @@ class AView(): BackStackView() {
     override fun onCreate(backstack: BackStackInterface, model: ModelInterface, context: AndroidContextInterface) {
         /** Do nothing **/
     }
-
-    override fun onResume(context: AndroidContextInterface) {
-        /** Do nothing **/
-    }
 }

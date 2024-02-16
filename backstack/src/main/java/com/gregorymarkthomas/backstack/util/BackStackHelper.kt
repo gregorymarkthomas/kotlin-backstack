@@ -4,11 +4,10 @@ import android.view.ViewGroup
 import com.gregorymarkthomas.backstack.BackStackManager
 import com.gregorymarkthomas.backstack.interfaces.AndroidContextInterface
 import com.gregorymarkthomas.backstack.interfaces.BackStackInterface
-import com.gregorymarkthomas.backstack.interfaces.BackStackViewCallback
 import com.gregorymarkthomas.backstack.interfaces.ModelInterface
 import com.gregorymarkthomas.backstack.view.BackStackView
 
-class BackStackHelper(private val activity: ActivityInterface): BackStackInterface, BackStackViewCallback {
+class BackStackHelper(private val activity: ActivityInterface): BackStackInterface {
 
     fun onCreate() {
         val recent = getMostRecentView()
@@ -18,26 +17,18 @@ class BackStackHelper(private val activity: ActivityInterface): BackStackInterfa
             goTo(recent)
     }
 
-    fun onBackPressed() {
-        BackStackManager.instance.goBack(this)
-    }
-
-    override fun onCreate(backstackView: BackStackView) {
-        activity.removeAllViews()
-        activity.addView(backstackView.inflate(activity))
-        backstackView.onCreate(this, activity.getModel(), activity)
-    }
-
     override fun goTo(view: BackStackView) {
-        BackStackManager.instance.goTo(view, this)
+        onViewChanged(BackStackManager.instance.goTo(view))
     }
 
     override fun clearTo(view: BackStackView) {
-        BackStackManager.instance.clearTo(view, this)
+        onViewChanged(BackStackManager.instance.clearTo(view))
     }
 
-    override fun goBack(): Boolean {
-        return BackStackManager.instance.goBack(this)
+    override fun goBack() {
+        val view = BackStackManager.instance.goBack()
+        if (view != null)
+            onViewChanged(view)
     }
 
     override fun getMostRecentView(): BackStackView? {
@@ -46,6 +37,12 @@ class BackStackHelper(private val activity: ActivityInterface): BackStackInterfa
 
     override fun getCurrentViewClasses(): List<String> {
         return BackStackManager.instance.getCurrentViewClasses()
+    }
+
+    private fun onViewChanged(view: BackStackView) {
+        activity.removeAllViews()
+        activity.addView(view.inflate(activity))
+        view.onCreate(this, activity.getModel(), activity)
     }
 
     interface ActivityInterface: AndroidContextInterface {

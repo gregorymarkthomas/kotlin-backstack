@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), BackStackHelper.ActivityInterface, Vie
 
     override fun onBackPressed() {
         super.onBackPressed()
-        backstacker.onBackPressed()
+        backstacker.goBack()
     }
 
     override fun onClick(v: View?) {

@@ -1,7 +1,6 @@
 package com.gregorymarkthomas.backstack
 
 import com.gregorymarkthomas.backstack.interfaces.BackStackInternalInterface
-import com.gregorymarkthomas.backstack.interfaces.BackStackViewCallback
 import com.gregorymarkthomas.backstack.view.BackStackView
 
 class BackStack: BackStackInternalInterface {
@@ -12,39 +11,36 @@ class BackStack: BackStackInternalInterface {
     /**
      * Always adds new instance of [view]; will replace if already exists.
      */
-    override fun goTo(view: BackStackView, callback: BackStackViewCallback) {
+    override fun goTo(view: BackStackView): BackStackView {
         val index = indexOf(view::class.java)
         if(index != -1)
             stack = trim(stack, index)
         stack.add(view)
-        callback.onCreate(view)
+        return view
     }
 
     /**
      * Clears stack and makes [view] the only element.
      */
-    override fun clearTo(view: BackStackView, callback: BackStackViewCallback) {
+    override fun clearTo(view: BackStackView): BackStackView {
         stack = mutableListOf()
         stack.add(view)
-        callback.onCreate(view)
+        return view
     }
 
     /**
      * Destroys latest view and retrieves the second-from-most-recent view.
      */
-    override fun goBack(callback: BackStackViewCallback): Boolean {
-        val success = try {
+    override fun goBack(): BackStackView? {
+        return try {
             if(getMostRecentViewIndex() != 0) {
                 stack.removeAt(getMostRecentViewIndex())
-                callback.onCreate(getMostRecentView()!!)
-                true
+                getMostRecentView()!!
             } else
-                false
+                null
         } catch (e: ArrayIndexOutOfBoundsException) {
-            false
+            null
         }
-
-        return success
     }
 
     /**
