@@ -4,10 +4,6 @@ import com.gregorymarkthomas.backstack.interfaces.BackStackInternalInterface
 import com.gregorymarkthomas.backstack.interfaces.BackStackViewCallback
 import com.gregorymarkthomas.backstack.view.BackStackView
 
-/**
- * Each view requires a few Android-related items, plus control of the backstack, hence the input arguments.
- * This is not a singleton in case the app has multiple Activities - there will be one BackStack per Activity.
- */
 class BackStack: BackStackInternalInterface {
 
     private var stack: MutableList<BackStackView> = mutableListOf()
@@ -33,6 +29,9 @@ class BackStack: BackStackInternalInterface {
         callback.onCreate(view)
     }
 
+    /**
+     * Destroys latest view and retrieves the second-from-most-recent view.
+     */
     override fun goBack(callback: BackStackViewCallback): Boolean {
         val success = try {
             if(getMostRecentViewIndex() != 0) {
@@ -48,6 +47,9 @@ class BackStack: BackStackInternalInterface {
         return success
     }
 
+    /**
+     * Retrieves the most-recent view in the stack.
+     */
     override fun getMostRecentView(): BackStackView? {
         val index = getMostRecentViewIndex()
         return if(index > -1)
@@ -56,6 +58,9 @@ class BackStack: BackStackInternalInterface {
             null
     }
 
+    /**
+     * Returns the stack as a list of class names.
+     */
     override fun getCurrentViewClasses(): List<String> {
         val classNames = ArrayList<String>(stack.size)
         for (view in stack) {
