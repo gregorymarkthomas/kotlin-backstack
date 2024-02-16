@@ -8,6 +8,7 @@ import com.gregorymarkthomas.backstack.interfaces.ModelInterface
 import com.gregorymarkthomas.backstack.view.BackStackView
 import com.gregorymarkthomas.backstackexample.R
 import com.gregorymarkthomas.backstackexample.databinding.ViewBinding
+import com.gregorymarkthomas.backstackexample.model.ExampleModelInterface
 import com.gregorymarkthomas.backstackexample.presenter.ExamplePresenter
 import com.gregorymarkthomas.backstackexample.presenter.ExamplePresenterInterface
 
@@ -27,7 +28,7 @@ class AView: BackStackView(), ViewInterface, OnClickListener {
         binding.pageTextView.text = "A"
 
         /** This should be last as Presenter will likely use views defined above. **/
-        this.presenter = ExamplePresenter(this, model, backstack)
+        this.presenter = ExamplePresenter(this, model as ExampleModelInterface, backstack)
     }
 
     override fun onClick(v: View?) {

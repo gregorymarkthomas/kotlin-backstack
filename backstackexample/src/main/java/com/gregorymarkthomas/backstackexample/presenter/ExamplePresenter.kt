@@ -1,7 +1,7 @@
 package com.gregorymarkthomas.backstackexample.presenter
 
 import com.gregorymarkthomas.backstack.interfaces.BackStackInterface
-import com.gregorymarkthomas.backstack.interfaces.ModelInterface
+import com.gregorymarkthomas.backstackexample.model.ExampleModelInterface
 import com.gregorymarkthomas.backstackexample.model.util.CalendarHelper
 import com.gregorymarkthomas.backstackexample.presenter.util.BackStackHelper
 import com.gregorymarkthomas.backstackexample.view.ViewInterface
@@ -17,7 +17,7 @@ import java.util.Calendar
  * but there should be a Presenter per feature.
  */
 class ExamplePresenter(private val view: ViewInterface,
-                       private val model: ModelInterface,
+                       private val model: ExampleModelInterface,
                        private val backstack: BackStackInterface): ExamplePresenterInterface, OnResumePresenterInterface {
 
     init {
