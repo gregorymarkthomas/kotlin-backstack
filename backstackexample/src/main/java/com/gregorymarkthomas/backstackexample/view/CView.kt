@@ -16,8 +16,6 @@ class CView: BackStackView(), ViewInterface, View.OnClickListener {
     private lateinit var binding: ViewBinding
 
     /********** public */
-    override fun getTag(): String = "CView"
-
     override fun getLayout(): Int = R.layout.view
 
     override fun onCreate(backstack: BackStackInterface, model: ModelInterface,

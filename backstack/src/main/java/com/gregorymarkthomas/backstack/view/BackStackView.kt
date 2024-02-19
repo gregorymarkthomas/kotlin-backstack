@@ -21,7 +21,6 @@ abstract class BackStackView {
         return view!!
     }
 
-    protected abstract fun getTag(): String
     protected abstract fun getLayout(): Int
     abstract fun onCreate(backstack: BackStackInterface, model: ModelInterface,
                           context: AndroidContextInterface)
@@ -32,7 +31,6 @@ abstract class BackStackView {
     private fun createLayout(context: AndroidContextInterface): ViewGroup {
         val parent = ViewGroup.inflate(context.getContext(), getLayout(), null)
         parent.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        parent.tag = getTag()
         return parent as ViewGroup
     }
 }

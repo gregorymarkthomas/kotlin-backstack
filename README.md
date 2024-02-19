@@ -51,27 +51,10 @@ dependencies {
 }
 ```
 
-#### Include `constraintlayout` library to your app module's _build configuration script_
-
-If Kotlin DSL (`build.gradle.kts`):
-
-```kotlin
-dependencies {
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-}
-```
-
-If Groovy DSL (`build.gradle`):
-
-```groovy
-dependencies {
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-}
-```
 
 ### 3. Setup your Activity 
 
-Ensure it extends `BackstackActivity()`.
+Ensure it implements `BackStack.ActivityInterface`.
 
 Below is a guide of an Activity implementation: you can view a working example in the `backstackexample` module of this project.
 
@@ -91,46 +74,59 @@ class MainActivity : BackstackActivity() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun getInitialView(): BackStackView {
-        return AView()
+    override fun onBackPressed() {
+        super.onBackPressed()
+        backstack.goBack()
     }
 
-    override fun addView(view: BackStackLayout) {
-        binding.root.addView(view)
+    override fun getInitialView(): BackStackView {
+        return ExampleView()
+    }
+
+    override fun addView(view: ViewGroup) {
+        binding.container.addView(view)
     }
 
     override fun removeAllViews() {
-        binding.root.removeAllViews()
+        binding.container.removeAllViews()
     }
 
     override fun getModel(): ModelInterface {
         return model
     }
+
+    override fun getContext(): Context {
+        return this
+    }
 }
 ```
 
-### Setup your view(s)
+### 4. Setup your view(s)
 
 Assumption: you already have an MVP architecture setup for this application - if not, see the code in `backstackexample` for an example:
 
 ```kotlin
-class AView: BackStackView() {
-    private lateinit var presenter: APresenterInterface
-    private lateinit var binding: AViewBinding
+class ExampleView: BackStackView() {
+    private lateinit var presenter: ExamplePresenterInterface
+    private lateinit var binding: ExampleViewBinding
 
     /********** public */
-    override fun getTag(): String = "AView"
-
-    override fun getLayout(): Int = R.layout.a_view
     
-    /*
-     * This is called by the PresenterInterface.
-     */
-    override fun onViewInitialised(backstack: BackStackInterface, model: ModelInterface) {
-        binding = AViewBinding.bind(view!!)
-        setupButton()
-        /** This should be last. **/
-        this.presenter = APresenter(this, model, backstack)
+    override fun getTag(): String = "ExampleView"
+
+    override fun getLayout(): Int = R.layout.example_view
+
+    override fun onCreate(backstack: BackStackInterface, model: ModelInterface,
+                          context: AndroidContextInterface) {
+        binding = ViewBinding.bind(view!!)
+        setupButtonOnClickListener()
+        /** This should be last as Presenter will likely use views defined above. **/
+        this.presenter = ExamplePresenter(this, model as ExampleModelInterface, backstack)
+    }
+
+    override fun onResume(context: AndroidContextInterface) {
+        binding = ViewBinding.bind(view!!)
+        this.presenter.onResume()
     }
 }
 ```
