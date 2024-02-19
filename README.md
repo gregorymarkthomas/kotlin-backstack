@@ -59,7 +59,7 @@ Ensure it implements `BackStack.ActivityInterface`.
 Below is a guide of an Activity implementation: you can view a working example in the `backstackexample` module of this project.
 
 ```kotlin
-class MainActivity : BackstackActivity() {
+class MainActivity : AppCompatActivity(), BackStack.ActivityInterface {
     private lateinit var binding: ActivityMainBinding
     
     /**
