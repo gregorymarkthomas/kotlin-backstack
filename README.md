@@ -112,8 +112,6 @@ class ExampleView: BackStackView() {
 
     /********** public */
     
-    override fun getTag(): String = "ExampleView"
-
     override fun getLayout(): Int = R.layout.example_view
 
     override fun onCreate(backstack: BackStackInterface, model: ModelInterface,
