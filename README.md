@@ -2,6 +2,8 @@
 
 Backstack for Model-View-Presenter (MVP) _Views_ in a Fragment-less design, written in Kotlin.
 
+![GIF](animation.gif "GIF")
+
 ## Why?
 
 With an MVP architecture, you may want to do away with Android's Fragments, keep Activities to a minimum,
