@@ -54,23 +54,26 @@ dependencies {
 
 ### 3. Setup your Activity 
 
-Ensure it implements `BackStack.ActivityInterface`.
+Ensure your Activity implements `BackStack.ActivityInterface`.
 
 Below is a guide of an Activity implementation: you can view a working example in the `backstackexample` module of this project.
 
 ```kotlin
 class MainActivity : AppCompatActivity(), BackStack.ActivityInterface {
     private lateinit var binding: ActivityMainBinding
+    private val backstack = BackStack(this)
     
     /**
      * Notes:
      * - View Binding (https://developer.android.com/topic/libraries/view-binding) is in-use
-     * - Call to `super.onCreate()` needs to be at end
+     * - Content set, view binding, and Model object creation should be done before call 
+     * to `backstack.onCreate()`.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         model = Model()
+        backstack.onCreate()
         super.onCreate(savedInstanceState)
     }
 
@@ -91,6 +94,9 @@ class MainActivity : AppCompatActivity(), BackStack.ActivityInterface {
         binding.container.removeAllViews()
     }
 
+    /**
+     * I have opted to create the Model in onCreate().
+     */
     override fun getModel(): ModelInterface {
         return model
     }

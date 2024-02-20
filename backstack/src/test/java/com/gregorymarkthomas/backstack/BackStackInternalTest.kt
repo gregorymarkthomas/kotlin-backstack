@@ -226,12 +226,6 @@ class BackStackInternalTest {
         assertEquals("BView", stack[1])
     }
 
-    @Test
-    fun `cannot resume to only view`() {
-        backstack.goTo(AView())
-        assertNull(backstack.resumeTo(AView::class.java))
-    }
-
     /**
      * NOTE: Hashcode uniqueness is not guaranteed.
      * https://stackoverflow.com/questions/909843/how-to-get-the-unique-id-of-an-object-which-overrides-hashcode#answer-909861

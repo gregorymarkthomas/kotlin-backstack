@@ -21,12 +21,12 @@ internal class BackStackInternal: BackStackInternalInterface {
     }
 
     /**
-     * Resumes existing requested [viewClass], unless not found or view is on top of stack.
+     * Resumes existing requested [viewClass], unless not found.
      */
     override fun resumeTo(viewClass: Class<out BackStackView>): BackStackView? {
         var view: BackStackView? = null
         val index = indexOf(viewClass)
-        if(index != -1 && index != (stack.size - 1)) {
+        if(index != -1) {
             stack = trim(stack, index + 1)
             view = getMostRecentView()
         }
