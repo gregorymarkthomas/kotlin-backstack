@@ -2,7 +2,7 @@
 
 Backstack for Model-View-Presenter (MVP) _Views_ in a Fragment-less design, written in Kotlin.
 
-![GIF](animation.gif "GIF")
+<img src="animation.gif" alt="GIF of backstackexample app" width="50%"/>
 
 ## Why?
 
