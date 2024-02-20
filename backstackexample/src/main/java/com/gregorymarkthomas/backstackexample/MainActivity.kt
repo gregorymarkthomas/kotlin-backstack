@@ -2,7 +2,6 @@ package com.gregorymarkthomas.backstackexample
 
 import android.content.Context
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -16,6 +15,7 @@ import com.gregorymarkthomas.backstackexample.model.Model
 import com.gregorymarkthomas.backstackexample.model.repo.LocalDateTimeRepository
 import com.gregorymarkthomas.backstackexample.presenter.ActivityPresenter
 import com.gregorymarkthomas.backstackexample.presenter.ActivityPresenterInterface
+import com.gregorymarkthomas.backstackexample.ui.SameElementSpinner
 import com.gregorymarkthomas.backstackexample.view.AView
 
 /**
@@ -78,81 +78,65 @@ class MainActivity : AppCompatActivity(), BackStack.ActivityInterface, View.OnCl
     }
 
     private fun setupGoToSpinner(context: Context) {
-        ArrayAdapter.createFromResource(
+        val spinner = binding.goToButton as SameElementSpinner
+        spinner.adapter = ArrayAdapter(
             context,
-            R.array.views,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.goToButton.adapter = adapter
-            binding.goToButton.setSelection(0, false)
-            binding.goToButton.setOnTouchListener(object : View.OnTouchListener {
-                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                    isGoToSpinnerSelected = true
-                    return false
-                }
-            })
-            binding.goToButton.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    if(isGoToSpinnerSelected)
-                        presenter.onGoToButtonPress(position)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            R.layout.spinner_item,
+            arrayListOf("A", "B", "C")
+        )
+        spinner.setOnTouchListener { v, event ->
+            isGoToSpinnerSelected = true
+            false
+        }
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                if(isGoToSpinnerSelected)
+                    presenter.onGoToButtonPress(position)
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }
 
     private fun setupResumeToSpinner(context: Context) {
-        ArrayAdapter.createFromResource(
+        val spinner = binding.resumeToButton as SameElementSpinner
+        spinner.adapter = ArrayAdapter(
             context,
-            R.array.views,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.resumeToButton.adapter = adapter
-            binding.resumeToButton.setSelection(0, false)
-            binding.resumeToButton.setOnTouchListener(object : View.OnTouchListener {
-                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                    isResumeToSpinnerSelected = true
-                    return false
-                }
-            })
-            binding.resumeToButton.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    if(isResumeToSpinnerSelected)
-                        presenter.onResumeToButtonPress(position)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            R.layout.spinner_item,
+            arrayListOf("A", "B", "C")
+        )
+        spinner.setOnTouchListener { v, event ->
+            isResumeToSpinnerSelected = true
+            false
+        }
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                if(isResumeToSpinnerSelected)
+                    presenter.onResumeToButtonPress(position)
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }
 
     private fun setupClearToSpinner(context: Context) {
-        ArrayAdapter.createFromResource(
+        val spinner = binding.clearToButton as SameElementSpinner
+        spinner.adapter = ArrayAdapter(
             context,
-            R.array.views,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.clearToButton.adapter = adapter
-            binding.clearToButton.setSelection(0, false)
-            binding.clearToButton.setOnTouchListener(object : View.OnTouchListener {
-                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                    isClearToSpinnerSelected = true
-                    return false
-                }
-            })
-            binding.clearToButton.onItemSelectedListener = object:
-                AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    if(isClearToSpinnerSelected)
-                        presenter.onClearToButtonPress(position)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            R.layout.spinner_item,
+            arrayListOf("A", "B", "C")
+        )
+        spinner.setOnTouchListener { v, event ->
+            isClearToSpinnerSelected = true
+            false
+        }
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                if(isClearToSpinnerSelected)
+                    presenter.onClearToButtonPress(position)
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }
 }

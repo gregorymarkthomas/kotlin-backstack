@@ -20,7 +20,10 @@
         android:background="@drawable/top_shadow"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="@dimen/margin"
+        android:paddingTop="@dimen/margin_quarter"
+        android:paddingBottom="@dimen/margin_quarter"
+        android:paddingStart="@dimen/margin_half"
+        android:paddingEnd="@dimen/margin_half"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -37,13 +40,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatSpinner
+        <com.gregorymarkthomas.backstackexample.ui.SameElementSpinner
             android:id="@+id/clearToButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.Button"
             android:text="@string/clear_to"
-            android:padding="@dimen/margin"
+            android:padding="@dimen/margin_half"
             android:layout_marginTop="@dimen/margin"
             android:layout_marginEnd="@dimen/margin"
             android:layout_marginStart="@dimen/margin"
@@ -61,13 +64,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatSpinner
+        <com.gregorymarkthomas.backstackexample.ui.SameElementSpinner
             android:id="@+id/resumeToButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.Button"
             android:text="@string/resume_to"
-            android:padding="@dimen/margin"
+            android:padding="@dimen/margin_half"
             android:layout_marginTop="@dimen/margin"
             android:layout_marginEnd="@dimen/margin"
             android:layout_marginStart="@dimen/margin"
@@ -86,13 +89,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatSpinner
+        <com.gregorymarkthomas.backstackexample.ui.SameElementSpinner
             android:id="@+id/goToButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.Button"
             android:text="@string/go_to"
-            android:padding="@dimen/margin"
+            android:padding="@dimen/margin_half"
             android:layout_marginTop="@dimen/margin"
             android:layout_marginEnd="@dimen/margin"
             android:layout_marginStart="@dimen/margin"
